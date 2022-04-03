@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "417862107130",
+    "project_id": "xpert-autism-862f6",
+    "storage_bucket": "xpert-autism-862f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417862107130:android:fa445bfaacb4be2c52ae43",
+        "android_client_info": {
+          "package_name": "com.example.xpert_autism"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417862107130-ebjssgq4nm09qggjgbfeiku7174rpaa0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh2Oc57LTtLDnETA2LwMC6PxgXYqxMjf8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417862107130-ebjssgq4nm09qggjgbfeiku7174rpaa0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
