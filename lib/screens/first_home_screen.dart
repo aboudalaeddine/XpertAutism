@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:xpert_autism/screens/signin_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';
@@ -30,7 +31,12 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                     padding: EdgeInsets.fromLTRB(
                         20, MediaQuery.of(context).size.height * 0.2, 20, 0),
                     child: Column(children: <Widget>[
-                      UserTypeButton(context, "PARENT", () {}),
+                      UserTypeButton(context, "PARENT", () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignInScreen()));
+                      }),
                       UserTypeButton(context, "DIRECTEUR", () {}),
                       UserTypeButton(context, "INSPECTEUR", () {}),
                     ])))));
