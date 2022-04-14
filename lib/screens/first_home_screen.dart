@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:xpert_autism/screens/listetudiant_screen.dart';
 import 'package:xpert_autism/screens/signin_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';
-import 'home_screen.dart';
+import 'listenfant_screen.dart';
 
 class FirstHomeScreen extends StatefulWidget {
   const FirstHomeScreen({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
-              hexStringTocolor("0000FF"),
+              hexStringTocolor("000000"),
               hexStringTocolor("0000CD"),
               hexStringTocolor("00008B")
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
@@ -37,8 +38,18 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                             MaterialPageRoute(
                                 builder: (context) => SignInScreen()));
                       }),
-                      UserTypeButton(context, "DIRECTEUR", () {}),
-                      UserTypeButton(context, "INSPECTEUR", () {}),
+                      UserTypeButton(context, "DIRECTEUR", () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyAppetud()));
+                      }),
+                      UserTypeButton(context, "INSPECTEUR", () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyAppetud()));
+                      }),
                     ])))));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:xpert_autism/screens/home_screen.dart';
+import 'package:xpert_autism/screens/listenfant_screen.dart';
+import 'package:xpert_autism/screens/listetudiant_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';
@@ -71,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Navigator.push(
                       context,
                       // ignore: prefer_const_constructors
-                      MaterialPageRoute(builder: ((context) => HomeScreen())));
+                      MaterialPageRoute(builder: ((context) => MyAppenf())));
                 }).onError((error, stackTrace) {
                   print("error ${error.toString()}");
                 });
