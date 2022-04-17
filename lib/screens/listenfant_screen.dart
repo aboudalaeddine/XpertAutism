@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xpert_autism/screens/ajouter_enfant.dart';
 import 'package:xpert_autism/screens/first_home_screen.dart';
 import 'package:xpert_autism/screens/listetudiant_screen.dart';
 
+import '../reusable_widgets/reusable_widget.dart';
 import 'signin_screen.dart';
 
 Future main() async {
@@ -73,7 +75,10 @@ class MainPageenf extends StatelessWidget {
         floatingActionButton: FloatingActionButton.extended(
             label: const Text("Ajouter enfant"),
             icon: Icon(Icons.add),
-            onPressed: () {}),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AjouterEnfant()));
+            }),
       );
 
   void onSelected(BuildContext context, int item) {
