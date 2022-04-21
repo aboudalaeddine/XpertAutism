@@ -42,13 +42,13 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyAppetud()));
+                                builder: (context) => MyAppEtud()));
                       }),
                       UserTypeButton(context, "INSPECTEUR", () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyAppetud()));
+                                builder: (context) => MyAppEtud()));
                       }),
                     ])))));
   }

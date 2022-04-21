@@ -2,33 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xpert_autism/screens/first_home_screen.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+import 'ajouter_enfant.dart';
 
-  runApp(MyAppetud());
-}
-
-class MyAppetud extends StatelessWidget {
-  static final String title = "Liste des etudiants";
+class MyAppEtud extends StatefulWidget {
+  const MyAppEtud({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: title,
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: MainPageetud(),
-      );
+  State<MyAppEtud> createState() => _MyAppEtudState();
 }
 
-class MainPageetud extends StatelessWidget {
+class _MyAppEtudState extends State<MyAppEtud> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(MyAppetud.title),
+          title: const Text("Liste des étudiants"),
           centerTitle: true,
           actions: [
             Theme(
@@ -43,15 +30,11 @@ class MainPageetud extends StatelessWidget {
                 itemBuilder: (context) => [
                   PopupMenuItem<int>(
                     value: 0,
-                    child: Text('Settings'),
-                  ),
-                  PopupMenuItem<int>(
-                    value: 1,
-                    child: Text('Share'),
+                    child: Text('inscrire un enfant'),
                   ),
                   PopupMenuDivider(),
                   PopupMenuItem<int>(
-                    value: 2,
+                    value: 1,
                     child: Row(
                       children: [
                         Icon(Icons.logout),
@@ -71,15 +54,10 @@ class MainPageetud extends StatelessWidget {
     switch (item) {
       case 0:
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FirstHomeScreen()),
+          MaterialPageRoute(builder: (context) => AjouterEnfant()),
         );
         break;
       case 1:
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => FirstHomeScreen()),
-        );
-        break;
-      case 2:
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => FirstHomeScreen()),
           (route) => false,

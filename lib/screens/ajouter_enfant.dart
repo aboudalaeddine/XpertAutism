@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gender_picker/source/enums.dart';
+import 'package:gender_picker/source/gender_picker.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';
+import 'package:date_field/date_field.dart';
 
 class AjouterEnfant extends StatefulWidget {
   const AjouterEnfant({Key? key}) : super(key: key);
@@ -11,9 +16,11 @@ class AjouterEnfant extends StatefulWidget {
 }
 
 class _AjouterEnfantState extends State<AjouterEnfant> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _ageTextController = TextEditingController();
-  TextEditingController _userNameTextController = TextEditingController();
+  TextEditingController _nomEnfantTextController = TextEditingController();
+  TextEditingController _prenomEnfantTextController = TextEditingController();
+
+  String? _selectedGender;
+  DateTime? _dateNaissance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,9 +38,9 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-            hexStringTocolor("0000FF"),
-            hexStringTocolor("0000CD"),
-            hexStringTocolor("00008B")
+            hexStringTocolor("F7B3C2"),
+            hexStringTocolor("F7B3C2"),
+            hexStringTocolor("F7B3C2")
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
               child: Padding(
@@ -44,21 +51,85 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                 height: 20,
               ),
               reusableTextField("Entrer le nom et de l'enfant", Icons.person,
-                  false, _userNameTextController),
+                  false, _nomEnfantTextController),
               const SizedBox(
                 height: 20,
               ),
               reusableTextField("Entrer le prénom de l'enfant", Icons.person,
-                  false, _userNameTextController),
+                  false, _prenomEnfantTextController),
               const SizedBox(
                 height: 20,
               ),
-              reusableTextField("Entrer la date de naissance de l'enfant",
-                  Icons.abc_outlined, false, _ageTextController),
+              const SizedBox(
+                height: 20,
+              ),
+              ListTile(
+                leading: Radio<String>(
+                  value: 'Male',
+                  groupValue: _selectedGender,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedGender = value!;
+                    });
+                  },
+                ),
+                title: const Text('Mâle'),
+              ),
+              ListTile(
+                leading: Radio<String>(
+                  value: 'Femelle',
+                  groupValue: _selectedGender,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedGender = value!;
+                    });
+                  },
+                ),
+                title: const Text('Femelle'),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              DateTimeFormField(
+                firstDate: DateTime.now().subtract(Duration(days: 3650)),
+                lastDate: DateTime.now(),
+                initialDate: DateTime.now().subtract(Duration(days: 1825)),
+                decoration: const InputDecoration(
+                  fillColor: Color.fromARGB(255, 29, 197, 209),
+                  filled: true,
+                  hintStyle: TextStyle(color: Colors.black45),
+                  errorStyle: TextStyle(color: Colors.redAccent),
+                  border: OutlineInputBorder(),
+                  suffixIcon: Icon(Icons.event_note),
+                  labelText: 'Date de naissance',
+                ),
+                mode: DateTimeFieldPickerMode.date,
+                autovalidateMode: AutovalidateMode.always,
+                validator: (e) =>
+                    (e?.day ?? 0) == 1 ? 'Please not the first day' : null,
+                onDateSelected: (DateTime value) {
+                  _dateNaissance = value;
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               const SizedBox(
                 height: 100,
               ),
-              UserTypeButton(context, "Enregistrer Enfant", () {}),
+              AddKidButton(context, "Enregistrer Enfant", () {
+                FirebaseFirestore.instance
+                    .collection('Users')
+                    .doc(FirebaseAuth.instance.currentUser?.email)
+                    .collection('Enfants')
+                    .doc(_prenomEnfantTextController.text)
+                    .set({
+                  'nom enfant': _nomEnfantTextController.text,
+                  'prenom enfant': _prenomEnfantTextController.text,
+                  'date de naissance': _dateNaissance,
+                  'sexe': _selectedGender
+                });
+              }),
             ]),
           ))),
     );

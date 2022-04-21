@@ -9,33 +9,22 @@ import 'package:xpert_autism/screens/listetudiant_screen.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import 'signin_screen.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-
-  runApp(MyAppenf());
-}
-
-class MyAppenf extends StatelessWidget {
-  static final String title = "Liste des enfants";
+class MyAppEnf extends StatefulWidget {
+  const MyAppEnf({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: title,
-        theme: ThemeData(primarySwatch: Colors.blue),
-        home: MainPageenf(),
-      );
+  State<MyAppEnf> createState() => _MyAppEnfState();
 }
 
-class MainPageenf extends StatelessWidget {
+class _MyAppEnfState extends State<MyAppEnf> {
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
         appBar: AppBar(
-          title: Text(MyAppenf.title),
+          automaticallyImplyLeading: false,
+          title: const Text("Liste des enfants"),
           centerTitle: true,
           actions: [
             Theme(
@@ -46,19 +35,15 @@ class MainPageenf extends StatelessWidget {
               ),
               child: PopupMenuButton<int>(
                 color: Colors.indigo,
-                onSelected: (item) => onSelected(context, item),
+                onSelected: (item) => onSelectedAction(context, item),
                 itemBuilder: (context) => [
                   PopupMenuItem<int>(
                     value: 0,
-                    child: Text('Settings'),
-                  ),
-                  PopupMenuItem<int>(
-                    value: 1,
-                    child: Text('Share'),
+                    child: Text('inscrire un enfant'),
                   ),
                   PopupMenuDivider(),
                   PopupMenuItem<int>(
-                    value: 2,
+                    value: 1,
                     child: Row(
                       children: [
                         Icon(Icons.logout),
@@ -79,21 +64,18 @@ class MainPageenf extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AjouterEnfant()));
             }),
-      );
+      ),
+    );
+  }
 
-  void onSelected(BuildContext context, int item) {
+  void onSelectedAction(BuildContext context, int item) {
     switch (item) {
       case 0:
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => MyAppetud()),
+          MaterialPageRoute(builder: (context) => AjouterEnfant()),
         );
         break;
       case 1:
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => MyAppetud()),
-        );
-        break;
-      case 2:
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => FirstHomeScreen()),
           (route) => false,
