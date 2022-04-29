@@ -1,13 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:morpheus/morpheus.dart';
+import 'package:xpert_autism/main.dart';
 import 'package:xpert_autism/screens/ajouter_enfant.dart';
 import 'package:xpert_autism/screens/first_home_screen.dart';
 import 'package:xpert_autism/screens/listetudiant_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import 'signin_screen.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyAppEnf extends StatefulWidget {
   const MyAppEnf({Key? key}) : super(key: key);
@@ -17,6 +26,11 @@ class MyAppEnf extends StatefulWidget {
 }
 
 class _MyAppEnfState extends State<MyAppEnf> {
+  final Stream<QuerySnapshot> users = FirebaseFirestore.instance
+      .collection('Users')
+      .doc(FirebaseAuth.instance.currentUser?.email)
+      .collection('Enfants')
+      .snapshots();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -57,6 +71,49 @@ class _MyAppEnfState extends State<MyAppEnf> {
             ),
           ],
         ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: StreamBuilder<QuerySnapshot>(
+            stream: users,
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<QuerySnapshot> snapshot,
+            ) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong');
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Text('Loading...');
+              }
+              final data = snapshot.requireData;
+              return ListView.builder(
+                itemCount: data.size,
+                itemBuilder: (context, index) {
+                  final _parentKey = GlobalKey();
+                  return Card(
+                    child: ListTile(
+                      key: _parentKey,
+                      leading: data.docs[index]['sexe'] == "Male"
+                          ? logoWidget("assets/images/male.png", 40, 40)
+                          : logoWidget("assets/images/avatar.png", 40, 40),
+                      title: Text(
+                        "${data.docs[index]['nomEnfant']} ${data.docs[index]['prenomEnfant']}",
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 174, 2, 204)),
+                      ),
+                      subtitle: Text(data.docs[index]['sexe']),
+                      trailing: Text(data.docs[index]['etat'].toString()),
+                      onTap: () {
+                        onClickEnfant(context, data, index);
+                      },
+                    ),
+                  );
+                },
+              );
+            },
+          ),
+        ),
         floatingActionButton: FloatingActionButton.extended(
             label: const Text("Ajouter enfant"),
             icon: Icon(Icons.add),
@@ -81,5 +138,37 @@ class _MyAppEnfState extends State<MyAppEnf> {
           (route) => false,
         );
     }
+  }
+
+  void onClickEnfant(
+      BuildContext myContext, QuerySnapshot<Object?> myData, int myIndex) {
+    Navigator.of(myContext).push(MorpheusPageRoute(
+        builder: ((myContext) => Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              title: const Text(
+                "Infos",
+                style: TextStyle(color: Color.fromARGB(255, 205, 197, 206)),
+              ),
+            ),
+            body: Container(
+                height: MediaQuery.of(context).size.height,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(children: <Widget>[
+                  Text(
+                    "le nom de l'enfant:${myData.docs[myIndex]['nomEnfant']} le prenom de l'enfant: ${myData.docs[myIndex]['prenomEnfant']}",
+                  ),
+                  accepter(context, typeUtilisateur.directeur, "adazd", () {})
+                ]))))));
+  }
+}
+
+class $ {}
+
+enum etatEnfant { attendant, accepte, refuse }
+
+extension EtatEnfantExtension on etatEnfant {
+  String get name {
+    return ["En attente", "Accepté", "Transféré"][index];
   }
 }

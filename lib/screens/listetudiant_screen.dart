@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xpert_autism/screens/ajouter_enfant.dart';
 import 'package:xpert_autism/screens/first_home_screen.dart';
+import 'package:xpert_autism/screens/listetudiant_screen.dart';
 
-import 'ajouter_enfant.dart';
+import '../reusable_widgets/reusable_widget.dart';
+import 'signin_screen.dart';
 
 class MyAppEtud extends StatefulWidget {
   const MyAppEtud({Key? key}) : super(key: key);
@@ -13,9 +18,13 @@ class MyAppEtud extends StatefulWidget {
 
 class _MyAppEtudState extends State<MyAppEtud> {
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
         appBar: AppBar(
-          title: const Text("Liste des étudiants"),
+          automaticallyImplyLeading: false,
+          title: const Text("Liste des etudiants"),
           centerTitle: true,
           actions: [
             Theme(
@@ -26,7 +35,7 @@ class _MyAppEtudState extends State<MyAppEtud> {
               ),
               child: PopupMenuButton<int>(
                 color: Colors.indigo,
-                onSelected: (item) => onSelected(context, item),
+                onSelected: (item) => onSelectedAction(context, item),
                 itemBuilder: (context) => [
                   PopupMenuItem<int>(
                     value: 0,
@@ -48,9 +57,11 @@ class _MyAppEtudState extends State<MyAppEtud> {
             ),
           ],
         ),
-      );
+      ),
+    );
+  }
 
-  void onSelected(BuildContext context, int item) {
+  void onSelectedAction(BuildContext context, int item) {
     switch (item) {
       case 0:
         Navigator.of(context).push(

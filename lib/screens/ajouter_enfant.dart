@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gender_picker/source/enums.dart';
-import 'package:gender_picker/source/gender_picker.dart';
+import 'package:xpert_autism/screens/listenfant_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';
@@ -115,20 +114,28 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                 height: 20,
               ),
               const SizedBox(
-                height: 100,
+                height: 50,
               ),
               AddKidButton(context, "Enregistrer Enfant", () {
-                FirebaseFirestore.instance
-                    .collection('Users')
-                    .doc(FirebaseAuth.instance.currentUser?.email)
-                    .collection('Enfants')
-                    .doc(_prenomEnfantTextController.text)
-                    .set({
-                  'nom enfant': _nomEnfantTextController.text,
-                  'prenom enfant': _prenomEnfantTextController.text,
-                  'date de naissance': _dateNaissance,
-                  'sexe': _selectedGender
-                });
+                if (_dateNaissance == null) {
+                  print("gyuuy");
+                } else {
+                  FirebaseFirestore.instance
+                      .collection('Users')
+                      .doc(FirebaseAuth.instance.currentUser?.email)
+                      .collection('Enfants')
+                      .doc(_prenomEnfantTextController.text)
+                      .set({
+                    'nomEnfant': _nomEnfantTextController.text,
+                    'prenomEnfant': _prenomEnfantTextController.text,
+                    'dateNaissance': _dateNaissance,
+                    'sexe': _selectedGender,
+                    'etat': etatEnfant.attendant.name.toString()
+                  }).then((value) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyAppEnf()));
+                  });
+                }
               }),
             ]),
           ))),

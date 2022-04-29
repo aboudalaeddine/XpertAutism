@@ -79,7 +79,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       .doc(value.user?.email)
                       .set({
                     'nom du parent': _nomParentTextController.text,
-                    'prenom du parent': _prenomParentTextController.text
+                    'prenom du parent': _prenomParentTextController.text,
+                    ' typeUtilisateur': typeUtilisateur.parent
                   });
                   print("Le compte d'utilisateur est crée");
 

@@ -149,20 +149,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  gender_picker:
-    dependency: "direct main"
-    description:
-      name: gender_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.0"
-  gender_selection:
-    dependency: "direct main"
-    description:
-      name: gender_selection
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   http_parser:
     dependency: transitive
     description:
@@ -212,6 +198,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  morpheus:
+    dependency: "direct main"
+    description:
+      name: morpheus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   path:
     dependency: transitive
     description:
