@@ -19,7 +19,8 @@ Future<void> main() async {
 }
 
 class MyAppEnf extends StatefulWidget {
-  const MyAppEnf({Key? key}) : super(key: key);
+  final typeUtilisateur;
+  const MyAppEnf({Key? key, @required this.typeUtilisateur}) : super(key: key);
 
   @override
   State<MyAppEnf> createState() => _MyAppEnfState();
@@ -96,16 +97,26 @@ class _MyAppEnfState extends State<MyAppEnf> {
                       key: _parentKey,
                       leading: data.docs[index]['sexe'] == "Male"
                           ? logoWidget("assets/images/male.png", 40, 40)
-                          : logoWidget("assets/images/avatar.png", 40, 40),
+                          : logoWidget("assets/images/femelle.png", 40, 40),
                       title: Text(
                         "${data.docs[index]['nomEnfant']} ${data.docs[index]['prenomEnfant']}",
                         style: const TextStyle(
                             color: Color.fromARGB(255, 174, 2, 204)),
                       ),
-                      subtitle: Text(data.docs[index]['sexe']),
+                      subtitle: Text((DateTime.now()
+                                  .difference(data.docs[index]['dateNaissance']
+                                      .toDate())
+                                  .inDays ~/
+                              365)
+                          .toString()),
                       trailing: Text(data.docs[index]['etat'].toString()),
                       onTap: () {
-                        onClickEnfant(context, data, index);
+                        onClickEnfant(
+                            context,
+                            data,
+                            index,
+                            MediaQuery.of(context).size.height,
+                            MediaQuery.of(context).size.width);
                       },
                     ),
                   );
@@ -140,26 +151,68 @@ class _MyAppEnfState extends State<MyAppEnf> {
     }
   }
 
-  void onClickEnfant(
-      BuildContext myContext, QuerySnapshot<Object?> myData, int myIndex) {
+  void onClickEnfant(BuildContext myContext, QuerySnapshot<Object?> myData,
+      int myIndex, double _height, double _width) {
     Navigator.of(myContext).push(MorpheusPageRoute(
         builder: ((myContext) => Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              title: const Text(
-                "Infos",
-                style: TextStyle(color: Color.fromARGB(255, 205, 197, 206)),
+              appBar: AppBar(
+                elevation: 0,
+                title: const Text(
+                  "profil enfant",
+                  style: TextStyle(color: Color.fromARGB(255, 205, 197, 206)),
+                ),
               ),
-            ),
-            body: Container(
-                height: MediaQuery.of(context).size.height,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Column(children: <Widget>[
-                  Text(
-                    "le nom de l'enfant:${myData.docs[myIndex]['nomEnfant']} le prenom de l'enfant: ${myData.docs[myIndex]['prenomEnfant']}",
-                  ),
-                  accepter(context, typeUtilisateur.directeur, "adazd", () {})
-                ]))))));
+              body: Container(
+                child: Stack(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: _height / 15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            CircleAvatar(
+                              backgroundImage: myData.docs[myIndex]['sexe'] ==
+                                      "Male"
+                                  ? const AssetImage('assets/images/male.png')
+                                  : const AssetImage(
+                                      'assets/images/femelle.png'),
+                              radius: _height / 10,
+                            ),
+                            SizedBox(
+                              height: _height / 30,
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    color: Color.fromARGB(255, 154, 154, 154),
+                                    blurRadius: 5)
+                              ]),
+                              child: Container(
+                                height: MediaQuery.of(context).size.height / 3,
+                                width:
+                                    2 * MediaQuery.of(context).size.width / 3,
+                                child: Card(
+                                  color: Colors.white,
+                                  child: Text(
+                                    "${myData.docs[myIndex]['nomEnfant']} ${myData.docs[myIndex]['prenomEnfant']}",
+                                    style: const TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ))));
   }
 }
 

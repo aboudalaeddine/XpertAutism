@@ -117,8 +117,13 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                 height: 50,
               ),
               AddKidButton(context, "Enregistrer Enfant", () {
-                if (_dateNaissance == null) {
-                  print("gyuuy");
+                if (_dateNaissance ==
+                        null /* &&
+                    _nomEnfantTextController == null &&
+                    _prenomEnfantTextController == null &&
+                    _selectedGender == null*/
+                    ) {
+                  print("Vous devez remplir tous les champs");
                 } else {
                   FirebaseFirestore.instance
                       .collection('Users')

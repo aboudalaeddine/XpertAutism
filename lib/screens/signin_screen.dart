@@ -24,11 +24,12 @@ class _SignInScreenState extends State<SignInScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            hexStringTocolor("0000FF"),
-            hexStringTocolor("0000CD"),
-            hexStringTocolor("00008B")
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            gradient: LinearGradient(colors: [
+              hexStringTocolor("0000FF"),
+              hexStringTocolor("0000CD"),
+              hexStringTocolor("00008B")
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+          ),
           child: SingleChildScrollView(
               child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -55,8 +56,10 @@ class _SignInScreenState extends State<SignInScreen> {
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyAppEnf()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyAppEnf()));
                   }).onError((error, stackTrace) {
                     print("error ${error.toString()}");
                   });
