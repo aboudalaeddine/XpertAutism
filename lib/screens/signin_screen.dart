@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -55,11 +56,20 @@ class _SignInScreenState extends State<SignInScreen> {
                       .signInWithEmailAndPassword(
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
-                      .then((value) {
+                      .then((value) async {
+                    var monTypeUtilisateur = await FirebaseFirestore.instance
+                        .collection('Users')
+                        .doc(FirebaseAuth.instance.currentUser?.email)
+                        .get()
+                        .then((value) {
+                      return value.data()!['typeUtilisateur'];
+                    });
+
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const MyAppEnf()));
+                            builder: (context) =>
+                                MyAppEnf(typeUtilisateur: monTypeUtilisateur)));
                   }).onError((error, stackTrace) {
                     print("error ${error.toString()}");
                   });
@@ -75,7 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have account?",
+        const Text("vous n'avez pas un compte?",
             style: TextStyle(color: Colors.white70)),
         GestureDetector(
           onTap: () {
@@ -83,7 +93,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 MaterialPageRoute(builder: (context) => SignUpScreen()));
           },
           child: const Text(
-            " Sign Up",
+            " s'inscrire",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         )

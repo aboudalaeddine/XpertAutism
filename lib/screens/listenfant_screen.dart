@@ -27,11 +27,16 @@ class MyAppEnf extends StatefulWidget {
 }
 
 class _MyAppEnfState extends State<MyAppEnf> {
-  final Stream<QuerySnapshot> users = FirebaseFirestore.instance
+  final Stream<QuerySnapshot> parentStream = FirebaseFirestore.instance
       .collection('Users')
       .doc(FirebaseAuth.instance.currentUser?.email)
       .collection('Enfants')
       .snapshots();
+  final Stream<QuerySnapshot> directeurStream =
+      FirebaseFirestore.instance.collectionGroup('Enfants').snapshots();
+  final Stream<QuerySnapshot> inspecteurStream =
+      FirebaseFirestore.instance.collectionGroup('Enfants').snapshots();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -54,7 +59,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                 itemBuilder: (context) => [
                   PopupMenuItem<int>(
                     value: 0,
-                    child: Text('inscrire un enfant'),
+                    child: Text('Inscrire un enfant'),
                   ),
                   PopupMenuDivider(),
                   PopupMenuItem<int>(
@@ -63,7 +68,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                       children: [
                         Icon(Icons.logout),
                         const SizedBox(width: 8),
-                        Text('Sign Out'),
+                        Text('Se déconnecter'),
                       ],
                     ),
                   ),
@@ -76,16 +81,20 @@ class _MyAppEnfState extends State<MyAppEnf> {
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: StreamBuilder<QuerySnapshot>(
-            stream: users,
+            stream: widget.typeUtilisateur == "directeur"
+                ? directeurStream
+                : widget.typeUtilisateur == "inspecteur"
+                    ? inspecteurStream
+                    : parentStream,
             builder: (
               BuildContext context,
               AsyncSnapshot<QuerySnapshot> snapshot,
             ) {
               if (snapshot.hasError) {
-                return Text('Something went wrong');
+                return Text("Quelque chose s'est mal passé");
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Text('Loading...');
+                return Text('Chargement...');
               }
               final data = snapshot.requireData;
               return ListView.builder(
@@ -109,7 +118,15 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                   .inDays ~/
                               365)
                           .toString()),
-                      trailing: Text(data.docs[index]['etat'].toString()),
+                      trailing: Text(
+                        data.docs[index]['etat'].toString(),
+                        style: TextStyle(
+                            color: data.docs[index]['etat'] == "accepté"
+                                ? Colors.green
+                                : data.docs[index]['etat'] == "refuse"
+                                    ? Colors.red
+                                    : Colors.grey),
+                      ),
                       onTap: () {
                         onClickEnfant(
                             context,
@@ -125,13 +142,15 @@ class _MyAppEnfState extends State<MyAppEnf> {
             },
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-            label: const Text("Ajouter enfant"),
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AjouterEnfant()));
-            }),
+        floatingActionButton: widget.typeUtilisateur == 'parent'
+            ? FloatingActionButton.extended(
+                label: const Text("Ajouter enfant"),
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AjouterEnfant()));
+                })
+            : null,
       ),
     );
   }
@@ -196,7 +215,9 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                 child: Card(
                                   color: Colors.white,
                                   child: Text(
-                                    "${myData.docs[myIndex]['nomEnfant']} ${myData.docs[myIndex]['prenomEnfant']}",
+                                    "le nom de l'enfant est:${myData.docs[myIndex]['nomEnfant']}"
+                                    " le prenom de l'enfant est:${myData.docs[myIndex]['prenomEnfant']}"
+                                    " l'age de l'enfant est:${myData.docs[myIndex]['dateNaissance']}",
                                     style: const TextStyle(
                                         fontSize: 18.0,
                                         color: Colors.black,
@@ -212,6 +233,13 @@ class _MyAppEnfState extends State<MyAppEnf> {
                   ],
                 ),
               ),
+              floatingActionButton: widget.typeUtilisateur == 'directeur'
+                  ? FloatingActionButton.extended(
+                      label: const Text("accepté"),
+                      onPressed: () {
+                        myData.docs[myIndex]['etat'] == "Accepté";
+                      })
+                  : null,
             ))));
   }
 }

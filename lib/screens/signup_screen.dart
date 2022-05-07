@@ -27,7 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          "Sign Up",
+          "S'inscrire",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
@@ -76,11 +76,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     .then((value) {
                   FirebaseFirestore.instance
                       .collection('Users')
-                      .doc(value.user?.email)
+                      .doc(value.user!.email)
                       .set({
-                    'nom du parent': _nomParentTextController.text,
-                    'prenom du parent': _prenomParentTextController.text,
-                    ' typeUtilisateur': typeUtilisateur.parent
+                    'nomParent': _nomParentTextController.text,
+                    'prenomParent': _prenomParentTextController.text,
+                    'typeUtilisateur': "parent"
                   });
                   print("Le compte d'utilisateur est crée");
 
@@ -88,8 +88,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       context,
                       // ignore: prefer_const_constructors
                       MaterialPageRoute(
-                          builder: ((context) => MyAppEnf(
-                                typeUtilisateur: typeUtilisateur.parent,
+                          builder: ((context) => const MyAppEnf(
+                                typeUtilisateur: 'parent',
                               ))));
                 }).onError((error, stackTrace) {
                   print("error ${error.toString()}");

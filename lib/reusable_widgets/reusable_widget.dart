@@ -51,7 +51,7 @@ Container signInSignUpButton(
         onTap();
       },
       child: Text(
-        isLogin ? 'LOG IN' : 'SIGN UP',
+        isLogin ? "se connecter" : "s'inscrire",
         style: const TextStyle(
             color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
       ),

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xpert_autism/screens/listenfant_screen.dart';
 
+import '../Quiz/min.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';
 import 'package:date_field/date_field.dart';
@@ -117,12 +118,10 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                 height: 50,
               ),
               AddKidButton(context, "Enregistrer Enfant", () {
-                if (_dateNaissance ==
-                        null /* &&
-                    _nomEnfantTextController == null &&
-                    _prenomEnfantTextController == null &&
-                    _selectedGender == null*/
-                    ) {
+                if (_dateNaissance == null ||
+                    _nomEnfantTextController.text == null ||
+                    _prenomEnfantTextController.text == null ||
+                    _selectedGender == null) {
                   print("Vous devez remplir tous les champs");
                 } else {
                   FirebaseFirestore.instance
@@ -138,7 +137,7 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                     'etat': etatEnfant.attendant.name.toString()
                   }).then((value) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyAppEnf()));
+                        MaterialPageRoute(builder: (context) => MyAppY()));
                   });
                 }
               }),

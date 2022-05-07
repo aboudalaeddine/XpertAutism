@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:xpert_autism/screens/listetudiant_screen.dart';
 import 'package:xpert_autism/screens/signin_screen.dart';
 
+import '../Quiz/min.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';
 import 'listenfant_screen.dart';
@@ -44,12 +45,7 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                             MaterialPageRoute(
                                 builder: (context) => MyAppEtud()));
                       }),
-                      UserTypeButton(context, "INSPECTEUR", () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyAppEtud()));
-                      }),
+                      UserTypeButton(context, "INSPECTEUR", () {}),
                     ])))));
   }
 }
