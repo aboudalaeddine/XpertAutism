@@ -98,18 +98,18 @@ class _MyAppState extends State<MyAppY> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: HexColor("#C9B3AF"),
+          backgroundColor: HexColor("#FFFFFF"),
           appBar: AppBar(
             title: Align(
               alignment: Alignment.center,
               child: Text(
-                "Fluttery",
+                "Les questions",
                 style: TextStyle(
                   color: HexColor("#F5FFF0"),
                 ),
               ),
             ),
-            backgroundColor: HexColor("#6B443D"),
+            backgroundColor: HexColor("#FF2196F3"),
           ),
           body: Align(
               alignment: Alignment.center,

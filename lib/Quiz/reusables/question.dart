@@ -18,7 +18,7 @@ class Question extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 20,
-                  color: HexColor("#6B443D"),
+                  color: Colors.black,
                 ))));
   }
 }

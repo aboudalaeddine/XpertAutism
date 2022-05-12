@@ -72,7 +72,6 @@ class Result extends StatelessWidget {
                         .set({'score': resultScore});*/
                       Navigator.push(
                           context,
-                          // ignore: prefer_const_constructors
                           MaterialPageRoute(
                               builder: ((context) => const MyAppEnf(
                                     typeUtilisateur: 'parent',

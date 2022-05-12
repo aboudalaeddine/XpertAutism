@@ -18,12 +18,12 @@ class Answer extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w400,
-            color: HexColor("#FEFEFE"),
+            color: HexColor("#000000"),
           ),
         ),
       ),
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(HexColor("#915C53"))),
+          backgroundColor: MaterialStateProperty.all(HexColor("#D3D3D3"))),
       onPressed: selectHandler,
     );
   }

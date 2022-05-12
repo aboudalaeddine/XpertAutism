@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:morpheus/morpheus.dart';
 import 'package:xpert_autism/main.dart';
 import 'package:xpert_autism/screens/ajouter_enfant.dart';
@@ -11,6 +12,9 @@ import 'package:xpert_autism/screens/listetudiant_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import 'signin_screen.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,17 +61,13 @@ class _MyAppEnfState extends State<MyAppEnf> {
                 color: Colors.indigo,
                 onSelected: (item) => onSelectedAction(context, item),
                 itemBuilder: (context) => [
-                  PopupMenuItem<int>(
-                    value: 0,
-                    child: Text('Inscrire un enfant'),
-                  ),
                   PopupMenuDivider(),
                   PopupMenuItem<int>(
                     value: 1,
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(Icons.logout),
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8),
                         Text('Se déconnecter'),
                       ],
                     ),
@@ -174,72 +174,230 @@ class _MyAppEnfState extends State<MyAppEnf> {
       int myIndex, double _height, double _width) {
     Navigator.of(myContext).push(MorpheusPageRoute(
         builder: ((myContext) => Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                title: const Text(
-                  "profil enfant",
-                  style: TextStyle(color: Color.fromARGB(255, 205, 197, 206)),
-                ),
-              ),
-              body: Container(
-                child: Stack(
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: _height / 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            CircleAvatar(
-                              backgroundImage: myData.docs[myIndex]['sexe'] ==
-                                      "Male"
-                                  ? const AssetImage('assets/images/male.png')
-                                  : const AssetImage(
-                                      'assets/images/femelle.png'),
-                              radius: _height / 10,
+              backgroundColor: Colors.white,
+              body: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.close,
+                              color: Colors.black,
                             ),
-                            SizedBox(
-                              height: _height / 30,
-                            ),
-                            Container(
-                              decoration: const BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                    color: Color.fromARGB(255, 154, 154, 154),
-                                    blurRadius: 5)
-                              ]),
-                              child: Container(
-                                height: MediaQuery.of(context).size.height / 3,
-                                width:
-                                    2 * MediaQuery.of(context).size.width / 3,
-                                child: Card(
-                                  color: Colors.white,
-                                  child: Text(
-                                    "le nom de l'enfant est:${myData.docs[myIndex]['nomEnfant']}"
-                                    " le prenom de l'enfant est:${myData.docs[myIndex]['prenomEnfant']}"
-                                    " l'age de l'enfant est:${myData.docs[myIndex]['dateNaissance']}",
-                                    style: const TextStyle(
-                                        fontSize: 18.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Mon\nProfile',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 34,
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      Container(
+                        height: _height * 0.43,
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            double innerHeight = constraints.maxHeight;
+                            double innerWidth = constraints.maxWidth;
+                            return Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    height: innerHeight * 0.72,
+                                    width: innerWidth,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Colors.white,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            color: Colors.black,
+                                            blurRadius: 20.0),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 80,
+                                        ),
+                                        Text(
+                                          "${myData.docs[myIndex]['nomEnfant']} ${myData.docs[myIndex]['prenomEnfant']}",
+                                          style: const TextStyle(
+                                            color:
+                                                Color.fromRGBO(39, 105, 171, 1),
+                                            fontFamily: 'Nunito',
+                                            fontSize: 37,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  'etat',
+                                                  style: TextStyle(
+                                                    color: Colors.grey[700],
+                                                    fontFamily: 'Nunito',
+                                                    fontSize: 25,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  myData.docs[myIndex]['etat']
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        39, 105, 171, 1),
+                                                    fontFamily: 'Nunito',
+                                                    fontSize: 25,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 25,
+                                                vertical: 8,
+                                              ),
+                                              child: Container(
+                                                height: 50,
+                                                width: 3,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  'age',
+                                                  style: TextStyle(
+                                                    color: Colors.grey[700],
+                                                    fontFamily: 'Nunito',
+                                                    fontSize: 25,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  (DateTime.now()
+                                                              .difference(myData
+                                                                  .docs[myIndex]
+                                                                      [
+                                                                      'dateNaissance']
+                                                                  .toDate())
+                                                              .inDays ~/
+                                                          365)
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    color: Color.fromRGBO(
+                                                        39, 105, 171, 1),
+                                                    fontFamily: 'Nunito',
+                                                    fontSize: 25,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Center(
+                                    child: Container(
+                                      child:
+                                          myData.docs[myIndex]['sexe'] == "Male"
+                                              ? Image.asset(
+                                                  "assets/images/male.png")
+                                              : Image.asset(
+                                                  "assets/images/femelle.png"),
+                                      width: innerWidth * 0.45,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: widget.typeUtilisateur == 'directeur'
+                              ? [
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.green),
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection('Users')
+                                          .doc()
+                                          .collection("Enfants")
+                                          .doc(myData.docs[myIndex]
+                                              ['prenomEnfant'])
+                                          .update({
+                                        'etat':
+                                            etatEnfant.accepte.name.toString()
+                                      });
+                                    },
+                                    child: Text("Accepter"),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.red),
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection('Users')
+                                          .doc()
+                                          .collection("Enfants")
+                                          .doc(myData.docs[myIndex]
+                                              ['prenomEnfant'])
+                                          .update({
+                                        'etat':
+                                            etatEnfant.refuse.name.toString()
+                                      });
+                                    },
+                                    child: Text("Refuser"),
+                                  ),
+                                ]
+                              : [])
+                    ],
+                  ),
                 ),
               ),
-              floatingActionButton: widget.typeUtilisateur == 'directeur'
-                  ? FloatingActionButton.extended(
-                      label: const Text("accepté"),
-                      onPressed: () {
-                        myData.docs[myIndex]['etat'] == "Accepté";
-                      })
-                  : null,
             ))));
   }
 }

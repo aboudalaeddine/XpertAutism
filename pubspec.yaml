@@ -41,6 +41,7 @@ dependencies:
   morpheus: ^1.2.3
   get: ^4.6.1
   hexcolor: ^2.0.7
+  flutter_vector_icons: ^1.0.0
   
 
 dev_dependencies:

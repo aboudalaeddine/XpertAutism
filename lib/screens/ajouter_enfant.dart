@@ -30,7 +30,8 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
         elevation: 0,
         title: const Text(
           "Enregistrer Enfant",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
       body: Container(
@@ -38,9 +39,9 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-            hexStringTocolor("F7B3C2"),
-            hexStringTocolor("F7B3C2"),
-            hexStringTocolor("F7B3C2")
+            hexStringTocolor("0000FF"),
+            hexStringTocolor("0000CD"),
+            hexStringTocolor("00008B")
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
               child: Padding(
@@ -95,7 +96,7 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                 lastDate: DateTime.now(),
                 initialDate: DateTime.now().subtract(Duration(days: 1825)),
                 decoration: const InputDecoration(
-                  fillColor: Color.fromARGB(255, 29, 197, 209),
+                  fillColor: Colors.white,
                   filled: true,
                   hintStyle: TextStyle(color: Colors.black45),
                   errorStyle: TextStyle(color: Colors.redAccent),
