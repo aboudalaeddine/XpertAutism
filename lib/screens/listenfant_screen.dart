@@ -4,11 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:morpheus/morpheus.dart';
 import 'package:xpert_autism/main.dart';
 import 'package:xpert_autism/screens/ajouter_enfant.dart';
 import 'package:xpert_autism/screens/first_home_screen.dart';
-import 'package:xpert_autism/screens/listetudiant_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import 'signin_screen.dart';
@@ -54,14 +54,13 @@ class _MyAppEnfState extends State<MyAppEnf> {
             Theme(
               data: Theme.of(context).copyWith(
                 dividerColor: Colors.white,
-                iconTheme: IconThemeData(color: Colors.white),
-                textTheme: TextTheme().apply(bodyColor: Colors.white),
+                iconTheme: const IconThemeData(color: Colors.white),
+                textTheme: const TextTheme().apply(bodyColor: Colors.white),
               ),
               child: PopupMenuButton<int>(
                 color: Colors.indigo,
                 onSelected: (item) => onSelectedAction(context, item),
                 itemBuilder: (context) => [
-                  PopupMenuDivider(),
                   PopupMenuItem<int>(
                     value: 1,
                     child: Row(
@@ -94,7 +93,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                 return Text("Quelque chose s'est mal passé");
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Text('Chargement...');
+                return const Text('Chargement...');
               }
               final data = snapshot.requireData;
               return ListView.builder(
@@ -121,9 +120,12 @@ class _MyAppEnfState extends State<MyAppEnf> {
                       trailing: Text(
                         data.docs[index]['etat'].toString(),
                         style: TextStyle(
-                            color: data.docs[index]['etat'] == "accepté"
+                            fontWeight: FontWeight.bold,
+                            color: data.docs[index]['etat'] ==
+                                    etatEnfant.accepte.name
                                 ? Colors.green
-                                : data.docs[index]['etat'] == "refuse"
+                                : data.docs[index]['etat'] ==
+                                        etatEnfant.refuse.name
                                     ? Colors.red
                                     : Colors.grey),
                       ),
@@ -179,12 +181,21 @@ class _MyAppEnfState extends State<MyAppEnf> {
                 physics: const BouncingScrollPhysics(),
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 73),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                   child: Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          Text(
+                            'Mon Profil',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.pacifico(
+                                fontSize: 30, color: Colors.black),
+                          ),
+                          SizedBox(
+                            width: 22,
+                          ),
                           IconButton(
                             icon: const Icon(
                               Icons.close,
@@ -196,22 +207,11 @@ class _MyAppEnfState extends State<MyAppEnf> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text(
-                        'Mon\nProfile',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 34,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 22,
+                      SizedBox(
+                        height: 15,
                       ),
                       Container(
-                        height: _height * 0.43,
+                        height: _height * 0.7,
                         child: LayoutBuilder(
                           builder: (context, constraints) {
                             double innerHeight = constraints.maxHeight;
@@ -250,82 +250,110 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          height: 5,
+                                          height: 25,
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'etat',
+                                                    style: TextStyle(
+                                                      color: Colors.grey[700],
+                                                      fontFamily: 'Nunito',
+                                                      fontSize: 25,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    myData.docs[myIndex]['etat']
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          39, 105, 171, 1),
+                                                      fontFamily: 'Nunito',
+                                                      fontSize: 25,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 25,
+                                                  vertical: 8,
+                                                ),
+                                                child: Container(
+                                                  height: 50,
+                                                  width: 3,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                    color: Colors.grey,
+                                                  ),
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'age',
+                                                    style: TextStyle(
+                                                      color: Colors.grey[700],
+                                                      fontFamily: 'Nunito',
+                                                      fontSize: 25,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    (DateTime.now()
+                                                                .difference(myData
+                                                                    .docs[
+                                                                        myIndex]
+                                                                        [
+                                                                        'dateNaissance']
+                                                                    .toDate())
+                                                                .inDays ~/
+                                                            365)
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          39, 105, 171, 1),
+                                                      fontFamily: 'Nunito',
+                                                      fontSize: 25,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ]),
+                                        Column(
                                           children: [
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  'etat',
-                                                  style: TextStyle(
-                                                    color: Colors.grey[700],
-                                                    fontFamily: 'Nunito',
-                                                    fontSize: 25,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  myData.docs[myIndex]['etat']
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        39, 105, 171, 1),
-                                                    fontFamily: 'Nunito',
-                                                    fontSize: 25,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 25,
-                                                vertical: 8,
-                                              ),
-                                              child: Container(
-                                                height: 50,
-                                                width: 3,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                  color: Colors.grey,
-                                                ),
+                                            Text(
+                                              'email',
+                                              style: TextStyle(
+                                                color: Colors.grey[700],
+                                                fontFamily: 'Nunito',
+                                                fontSize: 25,
                                               ),
                                             ),
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  'age',
-                                                  style: TextStyle(
-                                                    color: Colors.grey[700],
-                                                    fontFamily: 'Nunito',
-                                                    fontSize: 25,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  (DateTime.now()
-                                                              .difference(myData
-                                                                  .docs[myIndex]
-                                                                      [
-                                                                      'dateNaissance']
-                                                                  .toDate())
-                                                              .inDays ~/
-                                                          365)
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                    color: Color.fromRGBO(
-                                                        39, 105, 171, 1),
-                                                    fontFamily: 'Nunito',
-                                                    fontSize: 25,
-                                                  ),
-                                                ),
-                                              ],
+                                            Text(
+                                              myData.docs[myIndex]
+                                                      ['emailDuParent']
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                color: Color.fromRGBO(
+                                                    39, 105, 171, 1),
+                                                fontFamily: 'Nunito',
+                                                fontSize: 25,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 25,
                                             ),
                                           ],
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -362,16 +390,8 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.green),
                                     onPressed: () {
-                                      FirebaseFirestore.instance
-                                          .collection('Users')
-                                          .doc()
-                                          .collection("Enfants")
-                                          .doc(myData.docs[myIndex]
-                                              ['prenomEnfant'])
-                                          .update({
-                                        'etat':
-                                            etatEnfant.accepte.name.toString()
-                                      });
+                                      myData.docs[myIndex].reference.update(
+                                          {'etat': etatEnfant.accepte.name});
                                     },
                                     child: Text("Accepter"),
                                   ),
@@ -379,16 +399,8 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.red),
                                     onPressed: () {
-                                      FirebaseFirestore.instance
-                                          .collection('Users')
-                                          .doc()
-                                          .collection("Enfants")
-                                          .doc(myData.docs[myIndex]
-                                              ['prenomEnfant'])
-                                          .update({
-                                        'etat':
-                                            etatEnfant.refuse.name.toString()
-                                      });
+                                      myData.docs[myIndex].reference.update(
+                                          {'etat': etatEnfant.refuse.name});
                                     },
                                     child: Text("Refuser"),
                                   ),

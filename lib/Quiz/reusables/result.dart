@@ -8,26 +8,18 @@ import 'package:hexcolor/hexcolor.dart';
 
 class Result extends StatelessWidget {
   final double resultScore;
+  final String prenomEnfant;
   final VoidCallback resetHandler;
 
-  Result(this.resultScore, this.resetHandler);
+  Result(this.resultScore, this.prenomEnfant, this.resetHandler);
 
   String get resultPhrase {
     String resultText;
+
     final score = num.parse(resultScore.toStringAsFixed(2));
-    if (score <= 10.00) {
-      resultText =
-          'You tried it and scored $score points 🤎! \n Want to try again?';
-    } else if (score > 15.00 && score <= 25.00) {
-      resultText =
-          'You did it and scored $score points 🤎! \n Want to try again?';
-    } else if (score > 25.00 && score <= 40.00) {
-      resultText =
-          'You got it and scored $score points 🤎! \n Want to try again?';
-    } else {
-      resultText =
-          'You nailed it and scored $score points 🤎! \n Want to try again?';
-    }
+
+    resultText =
+        'Votre demande a été envoyée avec succès. \nUne décision vous sera communiquée par email.';
 
     return resultText;
   }
@@ -62,14 +54,14 @@ class Result extends StatelessWidget {
                     ),
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(HexColor("#915C53"))),
+                            MaterialStateProperty.all(HexColor("#FF03A9F4"))),
                     onPressed: () {
-                      /*FirebaseFirestore.instance
-                        .collection('Users')
-                        .doc(FirebaseAuth.instance.currentUser!.email)
-                        .collection('Enfants')
-                        .doc(prenomEnfant)
-                        .set({'score': resultScore});*/
+                      FirebaseFirestore.instance
+                          .collection('Users')
+                          .doc(FirebaseAuth.instance.currentUser!.email)
+                          .collection('Enfants')
+                          .doc(prenomEnfant)
+                          .update({'score': resultScore});
                       Navigator.push(
                           context,
                           MaterialPageRoute(

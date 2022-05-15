@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:xpert_autism/reusable_widgets/reusable_widget.dart';
 import 'package:xpert_autism/screens/listenfant_screen.dart';
-import 'package:xpert_autism/screens/listetudiant_screen.dart';
 import 'package:xpert_autism/screens/signup_screen.dart';
 import 'package:xpert_autism/utils/color_utils.dart';
 

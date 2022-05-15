@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xpert_autism/screens/listenfant_screen.dart';
-import 'package:xpert_autism/screens/listetudiant_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';

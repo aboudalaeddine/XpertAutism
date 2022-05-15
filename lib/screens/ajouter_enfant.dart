@@ -135,10 +135,15 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                     'prenomEnfant': _prenomEnfantTextController.text,
                     'dateNaissance': _dateNaissance,
                     'sexe': _selectedGender,
-                    'etat': etatEnfant.attendant.name.toString()
+                    'etat': etatEnfant.attendant.name.toString(),
+                    'emailDuParent': FirebaseAuth.instance.currentUser?.email
                   }).then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyAppY()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyAppY(
+                                prenomEnfant:
+                                    _prenomEnfantTextController.text)));
                   });
                 }
               }),

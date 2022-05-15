@@ -4,7 +4,8 @@ import 'package:xpert_autism/Quiz/reusables/result.dart';
 import './quiz.dart';
 
 class MyAppY extends StatefulWidget {
-  const MyAppY({Key? key}) : super(key: key);
+  final String prenomEnfant;
+  const MyAppY({Key? key, required this.prenomEnfant}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -12,66 +13,62 @@ class MyAppY extends StatefulWidget {
   }
 }
 
-void main() {
-  runApp(const MyAppY());
-}
-
 class _MyAppState extends State<MyAppY> {
   static const _data = [
     {
       'questionText': 'Votre enfant possède-t-il des habitudes inappropriées?',
       'answers': [
-        {'text': 'Jamais', 'score': 9.73},
-        {'text': 'Parfois', 'score': 4.61},
-        {'text': 'Souvent', 'score': 1.95},
-        {'text': 'Très souvent', 'score': 0.00},
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00},
       ]
     },
     {
       'questionText': "Votre enfant joue-t-il avec d'autres enfants?",
       'answers': [
-        {'text': 'Jamais', 'score': 2.3},
-        {'text': 'Parfois', 'score': 0.32},
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
         {'text': 'Souvent', 'score': 3.00},
-        {'text': 'Très souvent', 'score': 9.98},
+        {'text': 'Très souvent', 'score': 4.00},
       ]
     },
     {
       'questionText':
           'Votre enfant répète plusieurs mots ou gestes dans une boucle?',
       'answers': [
-        {'text': 'Jamais', 'score': 0.64},
-        {'text': 'Parfois', 'score': 10.00},
-        {'text': 'Souvent', 'score': 3.28},
-        {'text': 'Très souvent', 'score': 1.02}
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
       ]
     },
     {
       'questionText': 'Votre enfant refuse certains aliments ?',
       'answers': [
-        {'text': 'Jamais', 'score': 0.12},
-        {'text': 'Parfois', 'score': 2.13},
-        {'text': 'Souvent', 'score': 6.42},
-        {'text': 'Très souvent', 'score': 9.99}
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
       ]
     },
     {
       'questionText': 'Votre enfant refuse certains couleurs ?',
       'answers': [
-        {'text': 'Jamais', 'score': 5.53},
-        {'text': 'Parfois', 'score': 10.00},
-        {'text': 'Souvent', 'score': 2.47},
-        {'text': 'Très souvent', 'score': 2.35}
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
       ]
     },
     {
       'questionText':
           "Votre enfant éprouve-t-il une grande angoisse face à l'imprévu ou à tout ce qui en découle?",
       'answers': [
-        {'text': 'Jamais', 'score': 5.53},
-        {'text': 'Parfois', 'score': 10.00},
-        {'text': 'Souvent', 'score': 2.47},
-        {'text': 'Très souvent', 'score': 2.35}
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
       ]
     }
   ];
@@ -118,7 +115,7 @@ class _MyAppState extends State<MyAppY> {
                       answerQuestion: _answerQuestion,
                       indexQuestion: _indexQuestion,
                       data: _data)
-                  : Result(_totalScore, _ok))),
+                  : Result(_totalScore, widget.prenomEnfant, _ok))),
     );
   }
 }

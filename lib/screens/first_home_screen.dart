@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:xpert_autism/screens/listetudiant_screen.dart';
 import 'package:xpert_autism/screens/signin_screen.dart';
 
 import '../Quiz/min.dart';
@@ -31,21 +30,14 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
             child: SingleChildScrollView(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(
-                        20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+                        20, MediaQuery.of(context).size.height * 0.45, 20, 0),
                     child: Column(children: <Widget>[
-                      UserTypeButton(context, "PARENT", () {
+                      UserTypeButton(context, "MON ESPACE", () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SignInScreen()));
                       }),
-                      UserTypeButton(context, "DIRECTEUR", () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyAppEtud()));
-                      }),
-                      UserTypeButton(context, "INSPECTEUR", () {}),
                     ])))));
   }
 }
