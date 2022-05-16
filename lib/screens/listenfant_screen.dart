@@ -38,8 +38,10 @@ class _MyAppEnfState extends State<MyAppEnf> {
       .snapshots();
   final Stream<QuerySnapshot> directeurStream =
       FirebaseFirestore.instance.collectionGroup('Enfants').snapshots();
-  final Stream<QuerySnapshot> inspecteurStream =
-      FirebaseFirestore.instance.collectionGroup('Enfants').snapshots();
+  final Stream<QuerySnapshot> inspecteurStream = FirebaseFirestore.instance
+      .collectionGroup('Enfants')
+      .where('etat', isNotEqualTo: etatEnfant.attendant)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +92,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
               AsyncSnapshot<QuerySnapshot> snapshot,
             ) {
               if (snapshot.hasError) {
-                return Text("Quelque chose s'est mal passé");
+                return const Text("Quelque chose s'est mal passé");
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Text('Chargement...');
@@ -193,8 +195,8 @@ class _MyAppEnfState extends State<MyAppEnf> {
                             style: GoogleFonts.pacifico(
                                 fontSize: 30, color: Colors.black),
                           ),
-                          SizedBox(
-                            width: 22,
+                          const SizedBox(
+                            width: 70,
                           ),
                           IconButton(
                             icon: const Icon(
@@ -207,7 +209,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Container(
@@ -245,7 +247,6 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                           style: const TextStyle(
                                             color:
                                                 Color.fromRGBO(39, 105, 171, 1),
-                                            fontFamily: 'Nunito',
                                             fontSize: 37,
                                           ),
                                         ),
@@ -262,7 +263,6 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                                     'etat',
                                                     style: TextStyle(
                                                       color: Colors.grey[700],
-                                                      fontFamily: 'Nunito',
                                                       fontSize: 25,
                                                     ),
                                                   ),
@@ -272,7 +272,6 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                                     style: const TextStyle(
                                                       color: Color.fromRGBO(
                                                           39, 105, 171, 1),
-                                                      fontFamily: 'Nunito',
                                                       fontSize: 25,
                                                     ),
                                                   ),
@@ -354,6 +353,34 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                             ),
                                           ],
                                         ),
+                                        Row(
+                                            children: widget.typeUtilisateur ==
+                                                    'directeur'
+                                                ? [
+                                                    Text(
+                                                      'score',
+                                                      style: TextStyle(
+                                                        color: Colors.grey[700],
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 25,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      myData.docs[myIndex]
+                                                              ['score']
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                        color: Color.fromRGBO(
+                                                            39, 105, 171, 1),
+                                                        fontFamily: 'Nunito',
+                                                        fontSize: 25,
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 25,
+                                                    ),
+                                                  ]
+                                                : []),
                                       ],
                                     ),
                                   ),
