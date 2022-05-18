@@ -40,7 +40,8 @@ class _MyAppEnfState extends State<MyAppEnf> {
       FirebaseFirestore.instance.collectionGroup('Enfants').snapshots();
   final Stream<QuerySnapshot> inspecteurStream = FirebaseFirestore.instance
       .collectionGroup('Enfants')
-      .where('etat', isNotEqualTo: etatEnfant.attendant)
+      .where('sexe', isEqualTo: "Male")
+      .orderBy('score', descending: true)
       .snapshots();
 
   @override
@@ -92,7 +93,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
               AsyncSnapshot<QuerySnapshot> snapshot,
             ) {
               if (snapshot.hasError) {
-                return const Text("Quelque chose s'est mal passé");
+                return Text(snapshot.error.toString());
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Text('Chargement...');
@@ -299,7 +300,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    'age',
+                                                    'age: ',
                                                     style: TextStyle(
                                                       color: Colors.grey[700],
                                                       fontFamily: 'Nunito',
