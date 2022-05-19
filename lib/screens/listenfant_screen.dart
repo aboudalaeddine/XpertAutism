@@ -40,8 +40,9 @@ class _MyAppEnfState extends State<MyAppEnf> {
       FirebaseFirestore.instance.collectionGroup('Enfants').snapshots();
   final Stream<QuerySnapshot> inspecteurStream = FirebaseFirestore.instance
       .collectionGroup('Enfants')
-      .where('sexe', isEqualTo: "Male")
-      .orderBy('score', descending: true)
+      .where("etat", isNotEqualTo: etatEnfant.attendant.name)
+      .orderBy('etat')
+      .orderBy('nomEnfant')
       .snapshots();
 
   @override
@@ -303,7 +304,6 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                                     'age: ',
                                                     style: TextStyle(
                                                       color: Colors.grey[700],
-                                                      fontFamily: 'Nunito',
                                                       fontSize: 25,
                                                     ),
                                                   ),
@@ -321,7 +321,6 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                                     style: const TextStyle(
                                                       color: Color.fromRGBO(
                                                           39, 105, 171, 1),
-                                                      fontFamily: 'Nunito',
                                                       fontSize: 25,
                                                     ),
                                                   ),
@@ -334,7 +333,6 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                               'email',
                                               style: TextStyle(
                                                 color: Colors.grey[700],
-                                                fontFamily: 'Nunito',
                                                 fontSize: 25,
                                               ),
                                             ),
@@ -345,24 +343,24 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                               style: const TextStyle(
                                                 color: Color.fromRGBO(
                                                     39, 105, 171, 1),
-                                                fontFamily: 'Nunito',
                                                 fontSize: 25,
                                               ),
                                             ),
                                             const SizedBox(
-                                              width: 25,
+                                              height: 25,
                                             ),
                                           ],
                                         ),
                                         Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: widget.typeUtilisateur ==
                                                     'directeur'
                                                 ? [
                                                     Text(
-                                                      'score',
+                                                      'score: ',
                                                       style: TextStyle(
                                                         color: Colors.grey[700],
-                                                        fontFamily: 'Nunito',
                                                         fontSize: 25,
                                                       ),
                                                     ),
@@ -373,12 +371,8 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                                       style: const TextStyle(
                                                         color: Color.fromRGBO(
                                                             39, 105, 171, 1),
-                                                        fontFamily: 'Nunito',
                                                         fontSize: 25,
                                                       ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 25,
                                                     ),
                                                   ]
                                                 : []),
@@ -421,7 +415,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                       myData.docs[myIndex].reference.update(
                                           {'etat': etatEnfant.accepte.name});
                                     },
-                                    child: Text("Accepter"),
+                                    child: const Text("Accepter"),
                                   ),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -430,7 +424,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                       myData.docs[myIndex].reference.update(
                                           {'etat': etatEnfant.refuse.name});
                                     },
-                                    child: Text("Refuser"),
+                                    child: const Text("Refuser"),
                                   ),
                                 ]
                               : [])
