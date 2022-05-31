@@ -442,6 +442,6 @@ enum etatEnfant { attendant, accepte, refuse }
 
 extension EtatEnfantExtension on etatEnfant {
   String get name {
-    return ["En attente", "Accepté", "Transféré"][index];
+    return ["En attente", "Accepté", "Pris en charge"][index];
   }
 }

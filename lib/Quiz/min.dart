@@ -44,16 +44,7 @@ class _MyAppState extends State<MyAppY> {
       ]
     },
     {
-      'questionText': 'Votre enfant refuse certains aliments ?',
-      'answers': [
-        {'text': 'Jamais', 'score': 1.00},
-        {'text': 'Parfois', 'score': 2.00},
-        {'text': 'Souvent', 'score': 3.00},
-        {'text': 'Très souvent', 'score': 4.00}
-      ]
-    },
-    {
-      'questionText': 'Votre enfant refuse certains couleurs ?',
+      'questionText': 'Votre enfant est isolé ?',
       'answers': [
         {'text': 'Jamais', 'score': 1.00},
         {'text': 'Parfois', 'score': 2.00},
@@ -63,7 +54,106 @@ class _MyAppState extends State<MyAppY> {
     },
     {
       'questionText':
-          "Votre enfant éprouve-t-il une grande angoisse face à l'imprévu ou à tout ce qui en découle?",
+          "enfant trouve-t-il difficile d'exprimer ce qu'il ressent?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText': "Votre enfant répond-il à son nom lorsqu’il est appelé?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Votre enfant maintient-il un contact visuel lorsqu’on lui parle?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Votre enfant partage-t-il ses intérêts avec vous et imite-t-il vos intérêts?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Votre enfant fait-il semblant de jouer ou utilise-t-il son imagination?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Votre enfant vous regarde lorsque vous appelez son nom ?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Lorsque vous conversez, est-il facile de maintenir un contact visuel avec votre enfant?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Lorsque votre enfant est confronté à une situation inconnue, vous regarde-t-il spontanément?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Les autres peuvent-ils comprendre ce que votre enfant essaie de dire?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Trouvez-vous votre enfant en train de lécher ou de renifler des objets inhabituels?",
+      'answers': [
+        {'text': 'Jamais', 'score': 1.00},
+        {'text': 'Parfois', 'score': 2.00},
+        {'text': 'Souvent', 'score': 3.00},
+        {'text': 'Très souvent', 'score': 4.00}
+      ]
+    },
+    {
+      'questionText':
+          "Votre enfant demande-t-il de l’aide lorsqu’il veut essayer quelque chose de nouveau?",
       'answers': [
         {'text': 'Jamais', 'score': 1.00},
         {'text': 'Parfois', 'score': 2.00},
@@ -110,7 +200,7 @@ class _MyAppState extends State<MyAppY> {
           ),
           body: Align(
               alignment: Alignment.center,
-              child: (_indexQuestion <= 5 && _indexQuestion >= 0)
+              child: (_indexQuestion <= 14 && _indexQuestion >= 0)
                   ? Quiz(
                       answerQuestion: _answerQuestion,
                       indexQuestion: _indexQuestion,
