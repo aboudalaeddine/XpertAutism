@@ -1,10 +1,11 @@
 # xpert_autism
 
-A new Flutter project.
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Our program includes a questionnaire based on a synthesis of autism differential diagnosis methodologies (ADI-R, L'ADOS-2, Les CARS).
+This work is part of an autistic children's care initiative.
 
 A few resources to get you started if this is your first Flutter project:
 
