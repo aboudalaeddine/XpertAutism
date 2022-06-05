@@ -2,7 +2,7 @@
 
 
 
-## Getting Started
+## Description
 
 Our program includes a questionnaire based on a synthesis of autism differential diagnosis methodologies (ADI-R, L'ADOS-2, Les CARS).
 This work is part of an autistic children's care initiative.
