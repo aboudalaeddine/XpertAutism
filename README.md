@@ -4,8 +4,7 @@
 
 ## Description
 
-Our program includes a questionnaire based on a synthesis of autism differential diagnosis methodologies (ADI-R, L'ADOS-2, Les CARS).
-This work is part of an autistic children's care initiative.
+Notre application propose un formulaire avec des questions issues d'une synthèse des méthodes de diagnostic différentiel de l'autisme (ADI-R, L'ADOS-2, Les CARS).Ce travail fait partie d'un projet de prise en charge d'enfants autistes.
 
 
 
