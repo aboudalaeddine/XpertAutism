@@ -83,6 +83,12 @@ class _MyAppEnfState extends State<MyAppEnf> {
         body: Container(
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(vertical: 20),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/backgroundtt.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: StreamBuilder<QuerySnapshot>(
             stream: widget.typeUtilisateur == "directeur"
                 ? directeurStream

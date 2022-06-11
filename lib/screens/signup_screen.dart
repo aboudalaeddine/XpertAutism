@@ -36,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/background.jpg"),
+              image: AssetImage("assets/images/backgroundtt.jpg"),
               fit: BoxFit.cover,
             ),
           ),

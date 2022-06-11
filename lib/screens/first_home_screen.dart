@@ -21,12 +21,12 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
         body: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-              hexStringTocolor("000000"),
-              hexStringTocolor("0000CD"),
-              hexStringTocolor("00008B")
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/backgroundtt.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: SingleChildScrollView(
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(
