@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Image logoWidget(String imageName, double pWidth, double pHeight) {
@@ -18,7 +17,7 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
     cursorColor: Colors.white,
-    style: TextStyle(color: Colors.black),
+    style: const TextStyle(color: Colors.black),
     decoration: InputDecoration(
       prefixIcon: Icon(
         icon,
@@ -26,10 +25,10 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
       ),
       labelText: text,
       labelStyle:
-          TextStyle(color: Color.fromARGB(255, 8, 8, 8).withOpacity(0.9)),
+          TextStyle(color: const Color.fromARGB(255, 8, 8, 8).withOpacity(0.9)),
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.never,
-      fillColor: Color.fromARGB(255, 33, 92, 155).withOpacity(0.3),
+      fillColor: const Color.fromARGB(255, 33, 92, 155).withOpacity(0.3),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
           borderSide: const BorderSide(width: 0, style: BorderStyle.none)),

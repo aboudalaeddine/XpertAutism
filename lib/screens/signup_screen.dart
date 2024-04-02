@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:xpert_autism/screens/listenfant_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
-import '../utils/color_utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -14,10 +13,10 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _nomParentTextController = TextEditingController();
-  TextEditingController _prenomParentTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _nomParentTextController = TextEditingController();
+  final TextEditingController _prenomParentTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

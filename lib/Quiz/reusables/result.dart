@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:xpert_autism/Quiz/reusables/question.dart';
 import '../../screens/listenfant_screen.dart';
@@ -11,7 +10,7 @@ class Result extends StatelessWidget {
   final String prenomEnfant;
   final VoidCallback resetHandler;
 
-  Result(this.resultScore, this.prenomEnfant, this.resetHandler);
+  const Result(this.resultScore, this.prenomEnfant, this.resetHandler, {Key? key}) : super(key: key);
 
   String get resultPhrase {
     String resultText;

@@ -1,11 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:xpert_autism/screens/signin_screen.dart';
 
-import '../Quiz/min.dart';
 import '../reusable_widgets/reusable_widget.dart';
-import '../utils/color_utils.dart';
-import 'listenfant_screen.dart';
 
 class FirstHomeScreen extends StatefulWidget {
   const FirstHomeScreen({Key? key}) : super(key: key);
@@ -36,7 +32,7 @@ class _FirstHomeScreenState extends State<FirstHomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SignInScreen()));
+                                builder: (context) => const SignInScreen()));
                       }),
                     ])))));
   }

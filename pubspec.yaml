@@ -46,6 +46,8 @@ dependencies:
 
   flutter_lints: ^1.0.0
   custom_radio_grouped_button: ^2.1.2
+  youtube_player_flutter: ^8.0.0
+  
   
 
 dev_dependencies:

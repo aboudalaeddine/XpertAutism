@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:xpert_autism/screens/first_home_screen.dart';
-import 'package:xpert_autism/screens/signin_screen.dart';
+// ignore: duplicate_import
 import 'package:xpert_autism/screens/first_home_screen.dart';
 
 void main() async {

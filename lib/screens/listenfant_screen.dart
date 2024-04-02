@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:morpheus/morpheus.dart';
 import 'package:xpert_autism/main.dart';
@@ -11,15 +9,12 @@ import 'package:xpert_autism/screens/ajouter_enfant.dart';
 import 'package:xpert_autism/screens/first_home_screen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
-import 'signin_screen.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyAppEnf extends StatefulWidget {
@@ -65,10 +60,10 @@ class _MyAppEnfState extends State<MyAppEnf> {
                 color: Colors.indigo,
                 onSelected: (item) => onSelectedAction(context, item),
                 itemBuilder: (context) => [
-                  PopupMenuItem<int>(
+                  const PopupMenuItem<int>(
                     value: 1,
                     child: Row(
-                      children: const [
+                      children: [
                         Icon(Icons.logout),
                         SizedBox(width: 8),
                         Text('Se déconnecter'),
@@ -160,7 +155,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                 icon: const Icon(Icons.add),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AjouterEnfant()));
+                      MaterialPageRoute(builder: (context) => const AjouterEnfant()));
                 })
             : null,
       ),
@@ -171,12 +166,12 @@ class _MyAppEnfState extends State<MyAppEnf> {
     switch (item) {
       case 0:
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => AjouterEnfant()),
+          MaterialPageRoute(builder: (context) => const AjouterEnfant()),
         );
         break;
       case 1:
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => FirstHomeScreen()),
+          MaterialPageRoute(builder: (context) => const FirstHomeScreen()),
           (route) => false,
         );
     }
@@ -220,7 +215,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Container(
+                      SizedBox(
                         height: _height * 0.7,
                         child: LayoutBuilder(
                           builder: (context, constraints) {
@@ -391,7 +386,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                   left: 0,
                                   right: 0,
                                   child: Center(
-                                    child: Container(
+                                    child: SizedBox(
                                       child:
                                           myData.docs[myIndex]['sexe'] == "Male"
                                               ? Image.asset(
@@ -416,7 +411,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                               ? [
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.green),
+                                        backgroundColor: Colors.green),
                                     onPressed: () {
                                       myData.docs[myIndex].reference.update(
                                           {'etat': etatEnfant.accepte.name});
@@ -425,7 +420,7 @@ class _MyAppEnfState extends State<MyAppEnf> {
                                   ),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.red),
+                                        backgroundColor: Colors.red),
                                     onPressed: () {
                                       myData.docs[myIndex].reference.update(
                                           {'etat': etatEnfant.refuse.name});

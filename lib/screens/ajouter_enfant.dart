@@ -5,7 +5,6 @@ import 'package:xpert_autism/screens/listenfant_screen.dart';
 
 import '../Quiz/min.dart';
 import '../reusable_widgets/reusable_widget.dart';
-import '../utils/color_utils.dart';
 import 'package:date_field/date_field.dart';
 
 class AjouterEnfant extends StatefulWidget {
@@ -16,9 +15,10 @@ class AjouterEnfant extends StatefulWidget {
 }
 
 class _AjouterEnfantState extends State<AjouterEnfant> {
-  TextEditingController _nomEnfantTextController = TextEditingController();
-  TextEditingController _prenomEnfantTextController = TextEditingController();
+  final TextEditingController _nomEnfantTextController = TextEditingController();
+  final TextEditingController _prenomEnfantTextController = TextEditingController();
 
+  String? _degreautisme;
   String? _selectedGender;
   DateTime? _dateNaissance;
   @override
@@ -69,17 +69,17 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                     child: Column(
                       children: <Widget>[
                         const SizedBox(
-                          height: 20,
+                          height: 30,
                         ),
                         reusableTextField("Entrer le nom et de l'enfant",
                             Icons.person, false, _nomEnfantTextController),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         reusableTextField("Entrer le prénom de l'enfant",
                             Icons.person, false, _prenomEnfantTextController),
                         const SizedBox(
-                          height: 25,
+                          height: 5,
                         ),
                         ListTile(
                           leading: Radio<String>(
@@ -106,14 +106,14 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                           title: const Text('Femelle'),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         DateTimeFormField(
                           firstDate:
-                              DateTime.now().subtract(Duration(days: 3650)),
+                              DateTime.now().subtract(const Duration(days: 3650)),
                           lastDate: DateTime.now(),
                           initialDate:
-                              DateTime.now().subtract(Duration(days: 1825)),
+                              DateTime.now().subtract(const Duration(days: 1825)),
                           decoration: const InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
@@ -132,13 +132,48 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                             _dateNaissance = value;
                           },
                         ),
-                        const SizedBox(
-                          height: 35,
+                        const ListTile(
+                          title: Text("Degre d'autisme est:"),
+                        ),
+                        ListTile(
+                          leading: Radio<String>(
+                            value: '1',
+                            groupValue: _degreautisme,
+                            onChanged: (value) {
+                              setState(() {
+                                _degreautisme = value!;
+                              });
+                            },
+                          ),
+                          title: const Text('1'),
+                        ),
+                        ListTile(
+                          leading: Radio<String>(
+                            value: '2',
+                            groupValue: _degreautisme,
+                            onChanged: (value) {
+                              setState(() {
+                                _degreautisme = value!;
+                              });
+                            },
+                          ),
+                          title: const Text('2'),
+                        ),
+                        ListTile(
+                          leading: Radio<String>(
+                            value: '3',
+                            groupValue: _degreautisme,
+                            onChanged: (value) {
+                              setState(() {
+                                _degreautisme = value!;
+                              });
+                            },
+                          ),
+                          title: const Text('3'),
                         ),
                         AddKidButton(context, "Enregistrer Enfant", () {
                           if (_dateNaissance == null ||
-                              _nomEnfantTextController.text == null ||
-                              _prenomEnfantTextController.text == null ||
+                              _degreautisme == null ||
                               _selectedGender == null) {
                             print("Vous devez remplir tous les champs");
                           } else {
@@ -152,6 +187,7 @@ class _AjouterEnfantState extends State<AjouterEnfant> {
                               'prenomEnfant': _prenomEnfantTextController.text,
                               'dateNaissance': _dateNaissance,
                               'sexe': _selectedGender,
+                              'niveauAutisme': _degreautisme,
                               'etat': etatEnfant.attendant.name.toString(),
                               'emailDuParent':
                                   FirebaseAuth.instance.currentUser?.email
